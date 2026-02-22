@@ -6,6 +6,10 @@
 *.swp
 .buildlog/
 .history
+*.iml
+.idea/
+Dart_Packages.xml
+Flutter_Plugins.xml
 
 
 
