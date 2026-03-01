@@ -1,4 +1,4 @@
-import 'package:nemo_teacher/core/remote/response/registe_response.dart';
+import 'package:nemo_teacher/core/remote/response/register_response.dart';
 
 import '../repo/auth_repository.dart';
 
