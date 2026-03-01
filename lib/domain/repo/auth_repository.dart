@@ -1,6 +1,6 @@
 import 'package:nemo_teacher/core/remote/request/register_request.dart';
 import 'package:nemo_teacher/core/remote/response/login_response.dart';
-import 'package:nemo_teacher/core/remote/response/registe_response.dart';
+import 'package:nemo_teacher/core/remote/response/register_response.dart';
 
 import '../../core/network/base_response.dart';
 import '../../core/remote/request/login_request.dart';
