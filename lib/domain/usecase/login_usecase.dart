@@ -1,6 +1,5 @@
-import 'package:nemo_teacher/data/dataSource/local/token_datastore.dart';
-
-import '../model/auth.dart';
+import '../../core/remote/response/login_response.dart';
+import '../../data/dataSource/local/token_dataStore.dart';
 import '../repo/auth_repository.dart';
 
 class LoginUseCase {
@@ -9,8 +8,9 @@ class LoginUseCase {
 
   LoginUseCase(this._repo, this._tokenLocal);
 
-  Future<Auth> call(String email, String password) async {
+  Future<LoginResponse> call(String email, String password) async {
     final authData = await _repo.login(email, password);
+
     await _tokenLocal.saveAccessToken(authData.accessToken);
     return authData;
   }

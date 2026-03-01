@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nemo_teacher/feat/auth/ui/register_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/ui/theme/app_colors.dart';
@@ -150,7 +151,11 @@ class LoginScreen extends StatelessWidget {
 
                             NemoButton(
                               label: '새 계정 만들기',
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                                );
+                              },
                               variant: NemoButtonVariant.ghost,
                             ),
                           ],

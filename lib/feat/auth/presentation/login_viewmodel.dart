@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/repo/auth_repository.dart';
+import '../../../domain/usecase/login_usecase.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  final AuthRepository _repository;
+  final LoginUseCase _login;
 
-  LoginViewModel(this._repository);
+  LoginViewModel(this._login);
 
   bool _isLoading = false;
 
@@ -25,7 +25,7 @@ class LoginViewModel extends ChangeNotifier {
     _loginSuccess = false;
 
     try {
-      await _repository.login(email, password);
+      await _login(email, password);
 
       _loginSuccess = true;
       notifyListeners();
