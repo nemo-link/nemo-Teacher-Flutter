@@ -1,14 +1,19 @@
 import 'package:dio/dio.dart';
+import 'package:nemo_teacher/core/remote/request/register_request.dart';
 
-import '../../../core/constants/api_constants.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/remote/request/login_request.dart';
 
 class AuthRemoteDataSource {
-  final Dio _dio = ApiClient.instance.dio;
+  final Dio _dio;
 
-  /// LOGIN
-  Future<Response> login(LoginRequest request) async {
-    return await _dio.post(ApiConstants.login, data: request.toJson());
+  AuthRemoteDataSource(ApiClient apiClient) : _dio = apiClient.dio;
+
+  Future<Response> login(LoginRequest loginRequest) {
+    return _dio.post('/auth/login', data: loginRequest.toJson());
+  }
+
+  Future<Response> register(RegisterRequest registerRequest) {
+    return _dio.post('/auth/register', data: registerRequest.toJson());
   }
 }

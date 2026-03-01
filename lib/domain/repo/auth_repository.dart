@@ -1,29 +1,63 @@
+import 'package:nemo_teacher/core/remote/request/register_request.dart';
+import 'package:nemo_teacher/core/remote/response/login_response.dart';
+import 'package:nemo_teacher/core/remote/response/registe_response.dart';
+
 import '../../core/network/base_response.dart';
 import '../../core/remote/request/login_request.dart';
-import '../../data/dataSource/local/token_dataStore.dart';
 import '../../data/dataSource/remote/auth_remote_datasource.dart';
-import '../model/auth.dart';
 
 class AuthRepository {
   final AuthRemoteDataSource _remote;
-  final TokenDataStore _tokenDataStore;
 
-  AuthRepository(this._remote, this._tokenDataStore);
+  AuthRepository(this._remote);
 
-  Future<Auth> login(String email, String password) async {
+  Future<LoginResponse> login(String email, String password) async {
     final response = await _remote.login(
       LoginRequest(email: email, password: password),
     );
 
-    final result = BaseResponse<Auth>.fromJson(response.data, Auth.fromJson);
+    final result = BaseResponse<LoginResponse>.fromJson(
+      response.data,
+      LoginResponse.fromJson,
+    );
 
     result.ensureSuccess();
 
-    final authData = result.data!;
+    final data = result.data;
+    if (data == null) {
+      throw StateError('LoginResponse data is null');
+    }
+    return data;
+  }
 
-    /// 토큰 저장
-    await _tokenDataStore.saveAccessToken(authData.accessToken);
+  Future<RegisterResponse> register(
+    String email,
+    String password,
+    String phone,
+    String name,
+    String accountName,
+  ) async {
+    final response = await _remote.register(
+      RegisterRequest(
+        email: email,
+        password: password,
+        phone: phone,
+        name: name,
+        accountName: accountName,
+      ),
+    );
 
-    return authData;
+    final result = BaseResponse<RegisterResponse>.fromJson(
+      response.data,
+      RegisterResponse.fromJson,
+    );
+
+    result.ensureSuccess();
+
+    final data = result.data;
+    if (data == null) {
+      throw StateError('LoginResponse data is null');
+    }
+    return data;
   }
 }
